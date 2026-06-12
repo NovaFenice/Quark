@@ -1,5 +1,6 @@
 #include "EngineCompress.h"
 #include "conversions.h"
+#include "utils.h"
 
 #include <filesystem>
 #include <iomanip>
@@ -9,16 +10,7 @@
 
 namespace fs = std::filesystem;
 
-void printBanner() {
-    std::cout << "=================================================\n"
-              << " Quark - Universal Archiver & Converter\n"
-              << " Version: 1.0.0\n"
-              << " Developed by: NovaFenice\n"
-              << "=================================================\n\n";
-}
-
 void printUsage() {
-    printBanner();
     std::cout << "Usage: qk [option] [arguments]\n\n"
               << "Options:\n"
               << "  --compress -<format> <file_or_path>   Compress a file or directory into the specified archive format.\n"
@@ -29,7 +21,6 @@ void printUsage() {
 }
 
 void printHelp() {
-    printBanner();
     std::cout << "Usage: qk [option] [arguments]\n\n"
               << "Options:\n"
               << "  --archives                            Display all supported archive formats.\n"
@@ -180,6 +171,8 @@ int handleListFormats(uint32_t cmd_hash) {
 }
 
 int main(int argc, char *argv[]) {
+    credits::printBanner();
+    
     if (argc <= 1) {
         printUsage();
         return 0;
@@ -199,7 +192,7 @@ int main(int argc, char *argv[]) {
 
         case fnv1a("--version"):
         case fnv1a("-v"):
-            printBanner();
+            credits::printBanner();
             return 0;
 
         case fnv1a("--archives"):
